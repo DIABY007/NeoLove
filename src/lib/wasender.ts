@@ -23,8 +23,9 @@ export async function sendWhatsAppMessage(
   to: string,
   text: string
 ): Promise<WasenderResponse> {
-  // Formatter le numéro (enlever le + au début si présent)
-  const formattedNumber = to.startsWith('+') ? to.substring(1) : to
+  // Formatter le numéro en format E.164 (avec +)
+  // S'assurer que le numéro commence par +
+  const formattedNumber = to.startsWith('+') ? to : `+${to}`
 
   try {
     const response = await fetch(`${WASENDER_API_URL}/send-message`, {

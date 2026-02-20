@@ -24,6 +24,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ApiResponse>
 ) {
+  // Désactiver le cache pour cette route
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate')
+  res.setHeader('Pragma', 'no-cache')
+  res.setHeader('Expires', '0')
+
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, error: 'Méthode non autorisée' })
   }
@@ -74,15 +79,17 @@ export default async function handler(
 
     console.log(`[SEND-OTP] OTP pour ${phone_number}: ${otp} | WhatsApp envoyé: ${whatsappSent}`)
 
-    // Toujours retourner le code — Wasender peut dire "success" sans délivrer
+    // Retourner le code seulement si WhatsApp n'a pas fonctionné (fallback)
+    // Si WhatsApp fonctionne, ne pas exposer le code pour plus de sécurité
     return res.status(200).json({
       success: true,
       data: {
         message: whatsappSent
-          ? 'Code envoyé ! Vérifiez votre WhatsApp ou utilisez le code affiché.'
-          : 'Utilisez le code affiché ci-dessous.',
+          ? 'Code envoyé ! Vérifiez votre WhatsApp.'
+          : 'WhatsApp indisponible. Utilisez le code affiché ci-dessous.',
         whatsapp_sent: whatsappSent,
-        otp_code: otp,
+        // Ne retourner le code que si WhatsApp n'a pas fonctionné
+        ...(whatsappSent ? {} : { otp_code: otp }),
       },
     })
   } catch (error) {

@@ -57,9 +57,11 @@ export default function AuthPage() {
       // Vérifier si le WhatsApp a bien été envoyé
       setWhatsappSent(data.data?.whatsapp_sent === true)
 
-      // Toujours afficher le code OTP à l'écran
-      if (data.data?.otp_code) {
+      // Stocker le code OTP seulement si WhatsApp n'a pas fonctionné (fallback)
+      if (!data.data?.whatsapp_sent && data.data?.otp_code) {
         setOtpFallback(data.data.otp_code)
+      } else {
+        setOtpFallback('') // Ne pas afficher le code si WhatsApp fonctionne
       }
 
       // Persister le code de parrainage
@@ -269,23 +271,28 @@ export default function AuthPage() {
             </form>
           ) : (
             <div className="space-y-6">
-              {/* Afficher le code OTP */}
-              {otpFallback && (
-                <div className={`p-4 rounded-2xl text-center ${whatsappSent ? 'bg-primary-500/10 border border-primary-500/30' : 'bg-yellow-500/10 border border-yellow-500/30'}`}>
-                  {whatsappSent ? (
-                    <p className="text-primary-400 text-xs mb-2">
-                      📲 Code aussi envoyé par WhatsApp
-                    </p>
-                  ) : (
-                    <p className="text-yellow-400 text-xs mb-2">
-                      ⚠️ WhatsApp indisponible — utilisez ce code
+              {/* Message de confirmation */}
+              {whatsappSent ? (
+                <div className="p-4 rounded-2xl text-center bg-primary-500/10 border border-primary-500/30">
+                  <p className="text-primary-400 text-sm mb-1">
+                    📲 Code envoyé par WhatsApp
+                  </p>
+                  <p className="text-dark-400 text-xs">
+                    Vérifiez votre téléphone et entrez le code ci-dessous
+                  </p>
+                </div>
+              ) : (
+                <div className="p-4 rounded-2xl text-center bg-yellow-500/10 border border-yellow-500/30">
+                  <p className="text-yellow-400 text-sm mb-1">
+                    ⚠️ WhatsApp indisponible
+                  </p>
+                  {otpFallback && (
+                    <p className="text-white text-2xl font-bold tracking-[0.3em] my-2">
+                      {otpFallback}
                     </p>
                   )}
-                  <p className="text-white text-3xl font-bold tracking-[0.4em] my-2">
-                    {otpFallback}
-                  </p>
                   <p className="text-dark-400 text-xs mt-1">
-                    Entrez ce code ci-dessous pour continuer
+                    Utilisez le code affiché ci-dessus
                   </p>
                 </div>
               )}
