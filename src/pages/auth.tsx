@@ -17,6 +17,19 @@ export default function AuthPage() {
   const [error, setError] = useState('')
   const otpRefs = useRef<(HTMLInputElement | null)[]>([])
 
+  // Capturer le code affilié depuis l'URL (?ref=NEO-XXXX) ou sessionStorage
+  const [refCode, setRefCode] = useState('')
+  useEffect(() => {
+    const fromUrl = typeof router.query.ref === 'string' ? router.query.ref : ''
+    const fromStorage = typeof window !== 'undefined' ? sessionStorage.getItem('neolove_ref') || '' : ''
+    const code = fromUrl || fromStorage
+    if (code) {
+      setRefCode(code)
+      // Persister pour ne pas perdre entre les étapes
+      sessionStorage.setItem('neolove_ref', code)
+    }
+  }, [router.query.ref])
+
   // ===== Envoi OTP =====
   const handleSendOTP = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -57,7 +70,7 @@ export default function AuthPage() {
       const res = await fetch('/api/auth/verify-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone_number: phoneNumber, otp: otpCode, name }),
+        body: JSON.stringify({ phone_number: phoneNumber, otp: otpCode, name, affiliate_code: refCode || undefined }),
       })
 
       const data = await res.json()

@@ -18,6 +18,7 @@ const GenerateSchema = z.object({
     .max(APP_CONFIG.maxContextLength, `Maximum ${APP_CONFIG.maxContextLength} caractères`)
     .optional()
     .default(''),
+  objective: z.string().optional().default(''),
 })
 
 // Rate limiting simple en mémoire (à remplacer par Redis en production)
@@ -80,14 +81,14 @@ export default async function handler(
     })
   }
 
-  const { input_message, tone, context } = validation.data
+  const { input_message, tone, context, objective } = validation.data
 
   try {
     // 5. RAG léger : récupérer des templates pertinents
     const ragContext = getRelevantTemplates(input_message, tone as ToneId)
 
-    // 6. Construire les prompts
-    const systemPrompt = buildSystemPrompt(tone as ToneId, ragContext)
+    // 6. Construire les prompts (avec objectif si fourni)
+    const systemPrompt = buildSystemPrompt(tone as ToneId, ragContext, objective || undefined)
     const userMessage = buildUserMessage(input_message, context)
 
     // 7. Appel LLM via OpenRouter

@@ -39,10 +39,25 @@ RÈGLES CONVERSATIONNELLES IMPORTANTES :
 `
 
 /**
+ * Instructions par objectif
+ */
+const OBJECTIVE_INSTRUCTIONS: Record<string, string> = {
+  'attirer_attention': `OBJECTIF : Attirer l'attention. Tes réponses doivent être accrocheuses, intrigantes ou originales. Tu veux que l'autre ait envie de répondre immédiatement.`,
+  'relancer_sans_needy': `OBJECTIF : Relancer sans paraître insistant. Tes réponses doivent être légères, naturelles, sans pression. Tu rebondis comme si de rien n'était.`,
+  'créer_complicité': `OBJECTIF : Créer de la complicité. Tes réponses doivent approfondir le lien, trouver des points communs, poser des questions qui montrent un intérêt sincère.`,
+  'créer_tension': `OBJECTIF : Créer de la tension positive (flirt subtil). Tes réponses doivent jouer avec l'ambiguïté, le sous-entendu léger, le push-pull bienveillant.`,
+  'tester_intérêt': `OBJECTIF : Tester l'intérêt de l'autre. Tes réponses doivent inviter une réaction claire — un petit défi, une question directe, ou un silence stratégique.`,
+  'proposer_rdv': `OBJECTIF : Proposer un rendez-vous. Tes réponses doivent amener naturellement vers une rencontre IRL (café, activité, balade) sans forcer.`,
+  'désamorcer_froid': `OBJECTIF : Désamorcer un message froid ou fade. Tes réponses doivent ramener de l'énergie et de l'intérêt sans montrer que tu es affecté par le manque d'effort.`,
+  'prendre_distance': `OBJECTIF : Prendre de la distance poliment. Tes réponses doivent clore l'échange avec élégance, sans amertume ni reproche.`,
+}
+
+/**
  * Construire le prompt système principal
  */
-export function buildSystemPrompt(tone: ToneId, ragContext: string = ''): string {
+export function buildSystemPrompt(tone: ToneId, ragContext: string = '', objective?: string): string {
   const toneInstruction = TONE_INSTRUCTIONS[tone] || TONE_INSTRUCTIONS.neutre
+  const objectiveInstruction = objective ? (OBJECTIVE_INSTRUCTIONS[objective] || '') : ''
 
   let systemPrompt = `Tu es NeoLove, un assistant expert en communication relationnelle par message (SMS, WhatsApp, apps de rencontre).
 
@@ -50,7 +65,7 @@ TON RÔLE : Générer exactement 3 variantes de réponses que l'utilisateur peut
 
 TON ACTUEL : ${tone.toUpperCase()}
 ${toneInstruction}
-
+${objectiveInstruction ? `\n${objectiveInstruction}\n` : ''}
 ${CONVERSATION_RULES}
 
 FORMAT DE SORTIE OBLIGATOIRE :

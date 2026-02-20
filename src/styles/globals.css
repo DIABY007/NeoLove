@@ -51,6 +51,35 @@
   }
 }
 
+/* Animation modal */
+@keyframes animateIn {
+  from { opacity: 0; transform: scale(0.95) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.animate-in {
+  animation: animateIn 0.25s ease-out;
+}
+
+/* Animations assistant panel */
+@keyframes slideDown {
+  from { opacity: 0; max-height: 0; }
+  to { opacity: 1; max-height: 800px; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.assistant-panel-enter {
+  animation: slideDown 0.3s ease-out;
+}
+
+.assistant-badge-enter {
+  animation: fadeIn 0.2s ease-out;
+}
+
 /* Scrollbar personnalisée */
 ::-webkit-scrollbar {
   width: 4px;

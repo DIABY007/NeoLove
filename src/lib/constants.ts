@@ -10,6 +10,20 @@ export const TONES = [
 
 export type ToneId = typeof TONES[number]['id']
 
+// ===== OBJECTIFS PRÉDÉFINIS (alignés sur la base de connaissances v2) =====
+export const OBJECTIVES = [
+  { id: 'attirer_attention', label: 'Attirer l\'attention', icon: 'Zap', description: 'Capter l\'intérêt dès le premier message' },
+  { id: 'relancer_sans_needy', label: 'Relancer', icon: 'RefreshCw', description: 'Relancer sans paraître insistant' },
+  { id: 'créer_complicité', label: 'Complicité', icon: 'Users', description: 'Approfondir la connexion' },
+  { id: 'créer_tension', label: 'Tension', icon: 'Flame', description: 'Ajouter du flirt subtil' },
+  { id: 'tester_intérêt', label: 'Tester', icon: 'Search', description: 'Évaluer l\'investissement' },
+  { id: 'proposer_rdv', label: 'Proposer RDV', icon: 'Calendar', description: 'Proposer une rencontre' },
+  { id: 'désamorcer_froid', label: 'Désamorcer', icon: 'Shield', description: 'Rebondir sur un message fade' },
+  { id: 'prendre_distance', label: 'Distance', icon: 'LogOut', description: 'Clore poliment' },
+] as const
+
+export type ObjectiveId = typeof OBJECTIVES[number]['id']
+
 // ===== PLANS DE LICENCE =====
 export const PLANS = [
   {

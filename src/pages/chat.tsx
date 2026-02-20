@@ -2,34 +2,18 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { TONES } from '@/lib/constants'
-import type { ToneId } from '@/lib/constants'
+import type { ToneId, ObjectiveId } from '@/lib/constants'
 import NeoLoveLogo from '@/components/NeoLoveLogo'
+import AssistantPanel from '@/components/AssistantPanel'
+import { logAnalyticsEvent } from '@/lib/assistant-engine'
 import {
   Hand,
   Mail,
-  Palette,
   Sparkles,
   Lightbulb,
   Clipboard,
   Check,
-  Meh,
-  SmilePlus,
-  Glasses,
-  Heart,
-  Laugh,
-  HeartHandshake,
-  type LucideIcon,
 } from 'lucide-react'
-
-// Mapping des icônes pour les tons
-const TONE_ICONS: Record<string, LucideIcon> = {
-  Meh,
-  SmilePlus,
-  Glasses,
-  Heart,
-  Laugh,
-  HeartHandshake,
-}
 
 interface UserData {
   id: string
@@ -44,11 +28,13 @@ export default function ChatPage() {
   const [inputMessage, setInputMessage] = useState('')
   const [context, setContext] = useState('')
   const [selectedTone, setSelectedTone] = useState<ToneId>('taquin')
+  const [selectedObjective, setSelectedObjective] = useState<ObjectiveId>('créer_complicité')
   const [outputs, setOutputs] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
   const [showContext, setShowContext] = useState(false)
+  const [sessionId] = useState(() => `session_${Date.now()}`)
 
   // Vérifier l'authentification
   useEffect(() => {
@@ -85,6 +71,7 @@ export default function ChatPage() {
           input_message: inputMessage,
           tone: selectedTone,
           context: context || undefined,
+          objective: selectedObjective,
         }),
       })
 
@@ -96,6 +83,20 @@ export default function ChatPage() {
       }
 
       setOutputs(data.data.outputs)
+
+      // Analytics log
+      if (user) {
+        logAnalyticsEvent({
+          user_id: user.id,
+          session_id: sessionId,
+          message_id: data.data.generation_id || `gen_${Date.now()}`,
+          selected_objective: selectedObjective,
+          selected_tone: selectedTone,
+          contact_selected: false,
+          action: 'generate',
+          timestamp: new Date().toISOString(),
+        })
+      }
     } catch {
       setError('Erreur de connexion. Réessayez.')
     } finally {
@@ -110,7 +111,6 @@ export default function ChatPage() {
       setCopiedIndex(index)
       setTimeout(() => setCopiedIndex(null), 2000)
     } catch {
-      // Fallback pour les navigateurs sans clipboard API
       const textarea = document.createElement('textarea')
       textarea.value = text
       document.body.appendChild(textarea)
@@ -182,32 +182,16 @@ export default function ChatPage() {
             </div>
           </div>
 
-          {/* Sélection du ton */}
-          <div>
-            <label className="text-sm font-medium text-dark-300 mb-3 flex items-center gap-2">
-              <Palette className="w-4 h-4 text-primary-400" /> Choisissez un ton
-            </label>
-            <div className="grid grid-cols-3 gap-2">
-              {TONES.map(tone => (
-                <button
-                  key={tone.id}
-                  type="button"
-                  onClick={() => setSelectedTone(tone.id)}
-                  className={`py-3 px-2 rounded-2xl text-center transition-all duration-200 ${
-                    selectedTone === tone.id
-                      ? 'bg-primary-500/20 border-2 border-primary-500 text-primary-400 shadow-lg shadow-primary-500/10'
-                      : 'bg-dark-800 border-2 border-dark-700 text-dark-300 hover:border-dark-600'
-                  }`}
-                >
-                  {(() => {
-                    const ToneIcon = TONE_ICONS[tone.icon]
-                    return ToneIcon ? <ToneIcon className={`w-5 h-5 ${selectedTone === tone.id ? 'text-primary-400' : 'text-dark-300'}`} /> : null
-                  })()}
-                  <span className="block text-xs mt-1 font-medium">{tone.label}</span>
-                </button>
-              ))}
-            </div>
-          </div>
+          {/* ═══ PANNEAU ASSISTANT ═══ */}
+          <AssistantPanel
+            inputMessage={inputMessage}
+            outputs={outputs}
+            selectedTone={selectedTone}
+            onToneChange={setSelectedTone}
+            onObjectiveChange={setSelectedObjective}
+            selectedObjective={selectedObjective}
+            userId={user.id}
+          />
 
           {/* Contexte (optionnel) */}
           <div>
@@ -295,4 +279,3 @@ export default function ChatPage() {
     </>
   )
 }
-

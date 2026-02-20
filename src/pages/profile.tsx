@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import { MessageCircle, Sparkles, AlertTriangle, Key, Lightbulb, Gem, Settings } from 'lucide-react'
+import { MessageCircle, Sparkles, AlertTriangle, Key, Lightbulb, Gem, Settings, Users } from 'lucide-react'
+import AffiliateModal from '@/components/AffiliateModal'
 
 interface UserData {
   id: string
@@ -21,6 +22,11 @@ export default function ProfilePage() {
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
 
+  // Affiliation
+  const [isAffiliate, setIsAffiliate] = useState(false)
+  const [affiliateCode, setAffiliateCode] = useState('')
+  const [showAffiliateModal, setShowAffiliateModal] = useState(false)
+
   // Charger les données utilisateur
   const fetchUserData = () => {
     fetch('/api/auth/me')
@@ -38,9 +44,24 @@ export default function ProfilePage() {
       .catch(() => router.push('/auth'))
   }
 
-  // Vérifier l'authentification
+  // Vérifier si l'utilisateur est déjà affilié
+  const checkAffiliateStatus = () => {
+    fetch('/api/affiliate/dashboard')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.data?.affiliate) {
+          setIsAffiliate(true)
+          setAffiliateCode(data.data.affiliate.code)
+        }
+      })
+      .catch(() => {
+        // Pas affilié, c'est normal
+      })
+  }
+
   useEffect(() => {
     fetchUserData()
+    checkAffiliateStatus()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -70,7 +91,6 @@ export default function ProfilePage() {
       setMessage(data.data.message)
       setHasLicense(true)
       setLicenseCode('')
-      // Rafraîchir les données (jours restants, etc.)
       fetchUserData()
     } catch {
       setError('Erreur de connexion')
@@ -83,6 +103,12 @@ export default function ProfilePage() {
   const handleLogout = async () => {
     await fetch('/api/auth/logout', { method: 'POST' })
     router.push('/')
+  }
+
+  // Callback quand le code affilié est généré
+  const handleCodeGenerated = (code: string) => {
+    setIsAffiliate(true)
+    setAffiliateCode(code)
   }
 
   if (!user) {
@@ -159,7 +185,7 @@ export default function ProfilePage() {
           )}
         </div>
 
-        {/* Activation de licence (toujours visible pour l'accumulation) */}
+        {/* Activation de licence */}
         <div className="card mb-6">
           <h3 className="font-medium text-white mb-2 flex items-center gap-2"><Key className="w-4 h-4 text-primary-400" /> Activer un code</h3>
           {hasLicense && (
@@ -200,16 +226,40 @@ export default function ProfilePage() {
         {/* Bouton voir les plans */}
         <button
           onClick={() => router.push('/pricing')}
-          className="btn-secondary w-full mb-6"
+          className="btn-secondary w-full mb-4"
         >
           <span className="flex items-center justify-center gap-2"><Gem className="w-4 h-4" /> Voir les plans</span>
         </button>
 
-        {/* Bouton Admin Dashboard (visible uniquement pour les admins) */}
+        {/* ═══ AFFILIATION ═══ */}
+        {isAffiliate ? (
+          /* Bouton vers le tableau de bord partenaire */
+          <button
+            onClick={() => router.push('/affiliate')}
+            className="w-full mb-4 py-3 px-4 bg-primary-500/10 border border-primary-500/30 rounded-2xl text-primary-400 text-sm font-medium hover:bg-primary-500/20 transition-colors flex items-center justify-center gap-2"
+          >
+            <Users className="w-4 h-4" />
+            Tableau de bord partenaire
+            {affiliateCode && (
+              <span className="text-[10px] bg-primary-500/20 px-2 py-0.5 rounded-full font-mono">{affiliateCode}</span>
+            )}
+          </button>
+        ) : (
+          /* Bouton "Devenir partenaire" */
+          <button
+            onClick={() => setShowAffiliateModal(true)}
+            className="w-full mb-4 py-3 px-4 bg-dark-800 border border-dark-600 rounded-2xl text-dark-200 text-sm font-medium hover:bg-dark-700 hover:border-dark-500 transition-colors flex items-center justify-center gap-2"
+          >
+            <Users className="w-4 h-4 text-primary-400" />
+            Devenir partenaire
+          </button>
+        )}
+
+        {/* Bouton Admin Dashboard */}
         {user.role === 'admin' && (
           <button
             onClick={() => router.push('/admin')}
-            className="w-full mb-6 py-3 px-4 bg-dark-800 border border-dark-600 rounded-2xl text-white text-sm font-medium hover:bg-dark-700 transition-colors flex items-center justify-center gap-2"
+            className="w-full mb-4 py-3 px-4 bg-dark-800 border border-dark-600 rounded-2xl text-white text-sm font-medium hover:bg-dark-700 transition-colors flex items-center justify-center gap-2"
           >
             <Settings className="w-4 h-4" /> Dashboard Admin
           </button>
@@ -223,7 +273,13 @@ export default function ProfilePage() {
           Se déconnecter
         </button>
       </main>
+
+      {/* Modal d'inscription partenaire */}
+      <AffiliateModal
+        isOpen={showAffiliateModal}
+        onClose={() => setShowAffiliateModal(false)}
+        onCodeGenerated={handleCodeGenerated}
+      />
     </>
   )
 }
-

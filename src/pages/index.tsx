@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import Head from 'next/head'
 import NeoLoveLogo from '@/components/NeoLoveLogo'
 import {
@@ -15,6 +16,13 @@ import {
   Send,
   User,
   Clipboard,
+  Gift,
+  Users,
+  DollarSign,
+  Share2,
+  ArrowRight,
+  Shield,
+  ChevronRight,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -128,6 +136,39 @@ const TESTIMONIALS = [
     detail: 'Abonné premium',
     initials: 'IS',
   },
+  {
+    quote: 'J\'ai recommandé NeoLove à mes potes et je gagne des commissions. Tout le monde y gagne !',
+    author: 'Fatou B.',
+    detail: 'Partenaire NeoLove',
+    initials: 'FB',
+  },
+]
+
+const PARTNER_STEPS: { step: string; title: string; description: string; icon: LucideIcon }[] = [
+  {
+    step: '1',
+    title: 'Obtiens ton code',
+    description: 'Inscris-toi et génère ton code partenaire unique en un clic.',
+    icon: Gift,
+  },
+  {
+    step: '2',
+    title: 'Partage à tes amis',
+    description: 'Envoie ton lien par WhatsApp, SMS ou réseaux sociaux.',
+    icon: Share2,
+  },
+  {
+    step: '3',
+    title: 'Gagne des commissions',
+    description: 'Touche jusqu\'à 4 000 FCFA pour chaque ami qui s\'abonne.',
+    icon: DollarSign,
+  },
+]
+
+const COMMISSION_TIERS = [
+  { plan: 'Mensuel', price: '5 000 F', commission: '1 000 F', color: 'from-blue-500/20 to-blue-600/5', border: 'border-blue-500/20' },
+  { plan: 'Trimestriel', price: '12 000 F', commission: '2 000 F', color: 'from-primary-500/20 to-primary-600/5', border: 'border-primary-500/30', popular: true },
+  { plan: 'Semestriel', price: '20 000 F', commission: '4 000 F', color: 'from-emerald-500/20 to-emerald-600/5', border: 'border-emerald-500/20' },
 ]
 
 // ===== COMPOSANT DEMO =====
@@ -242,6 +283,16 @@ function DemoSection() {
 // ===== PAGE PRINCIPALE =====
 
 export default function Home() {
+  const router = useRouter()
+
+  // Capturer le code affilié et le stocker pour la page auth
+  useEffect(() => {
+    const ref = router.query.ref
+    if (typeof ref === 'string' && ref.trim()) {
+      sessionStorage.setItem('neolove_ref', ref.trim())
+    }
+  }, [router.query.ref])
+
   return (
     <>
       <Head>
@@ -308,6 +359,36 @@ export default function Home() {
             <svg className="w-5 h-5 text-dark-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
+          </div>
+        </section>
+
+        {/* ========== SOCIAL PROOF STRIP ========== */}
+        <section className="py-10 px-4 relative">
+          <div className="absolute inset-0 -z-10 bg-gradient-to-b from-dark-950 via-primary-500/[0.02] to-dark-950" />
+          <div className="max-w-3xl mx-auto">
+            <div className="grid grid-cols-3 gap-4">
+              <div className="text-center group">
+                <div className="inline-flex items-center justify-center w-10 h-10 rounded-2xl bg-primary-500/10 mb-2 group-hover:scale-110 transition-transform">
+                  <Users className="w-5 h-5 text-primary-400" />
+                </div>
+                <div className="text-2xl sm:text-3xl font-extrabold text-white">500+</div>
+                <div className="text-xs text-dark-400 mt-0.5">Utilisateurs actifs</div>
+              </div>
+              <div className="text-center group">
+                <div className="inline-flex items-center justify-center w-10 h-10 rounded-2xl bg-emerald-500/10 mb-2 group-hover:scale-110 transition-transform">
+                  <MessageCircle className="w-5 h-5 text-emerald-400" />
+                </div>
+                <div className="text-2xl sm:text-3xl font-extrabold text-white">10K+</div>
+                <div className="text-xs text-dark-400 mt-0.5">Réponses générées</div>
+              </div>
+              <div className="text-center group">
+                <div className="inline-flex items-center justify-center w-10 h-10 rounded-2xl bg-amber-500/10 mb-2 group-hover:scale-110 transition-transform">
+                  <Heart className="w-5 h-5 text-amber-400" />
+                </div>
+                <div className="text-2xl sm:text-3xl font-extrabold text-white">95%</div>
+                <div className="text-xs text-dark-400 mt-0.5">Taux de satisfaction</div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -514,6 +595,84 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ========== PROGRAMME PARTENAIRE ========== */}
+        <section className="py-20 px-4 relative">
+          <div className="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-emerald-500/[0.03] to-transparent" />
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-14">
+              <span className="inline-flex items-center gap-1.5 text-emerald-400 text-sm font-semibold tracking-wider uppercase mb-3">
+                <Gift className="w-4 h-4" /> Programme partenaire
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+                Recommande NeoLove,<br />
+                <span className="bg-gradient-to-r from-emerald-400 to-primary-400 bg-clip-text text-transparent">gagne des commissions</span>
+              </h2>
+              <p className="text-dark-400 max-w-lg mx-auto">
+                Partage NeoLove avec tes proches et touche une commission sur chaque abonnement.
+                Simple, transparent, sécurisé.
+              </p>
+            </div>
+
+            {/* 3 étapes partenaire */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+              {PARTNER_STEPS.map((step, i) => (
+                <div key={i} className="relative text-center group">
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-dark-800 border border-dark-700 mb-4 group-hover:border-emerald-500/50 group-hover:bg-emerald-500/10 transition-all duration-300">
+                    <step.icon className="w-6 h-6 text-emerald-400" />
+                    <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-emerald-500 text-white text-[10px] font-bold flex items-center justify-center shadow-lg shadow-emerald-500/30">
+                      {step.step}
+                    </div>
+                  </div>
+                  <h4 className="font-semibold text-white text-sm mb-1">{step.title}</h4>
+                  <p className="text-xs text-dark-400 leading-relaxed">{step.description}</p>
+                  {/* Flèche entre les étapes (desktop) */}
+                  {i < PARTNER_STEPS.length - 1 && (
+                    <div className="hidden sm:block absolute top-7 -right-2 text-dark-600">
+                      <ChevronRight className="w-4 h-4" />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Grille des commissions */}
+            <div className="grid grid-cols-3 gap-3 mb-8">
+              {COMMISSION_TIERS.map((tier, i) => (
+                <div
+                  key={i}
+                  className={`relative overflow-hidden rounded-2xl border ${tier.border} bg-gradient-to-br ${tier.color} p-4 text-center transition-all duration-300 hover:scale-[1.03]`}
+                >
+                  {tier.popular && (
+                    <div className="absolute top-0 right-0 bg-primary-500 text-white text-[9px] font-bold px-2 py-0.5 rounded-bl-lg">
+                      TOP
+                    </div>
+                  )}
+                  <div className="text-xs text-dark-400 mb-1">{tier.plan}</div>
+                  <div className="text-[10px] text-dark-500 mb-2">Abonnement {tier.price}</div>
+                  <div className="text-xl sm:text-2xl font-extrabold text-white">{tier.commission}</div>
+                  <div className="text-[10px] text-emerald-400 font-medium mt-1">ta commission</div>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA partenaire */}
+            <div className="text-center">
+              <a
+                href="/auth"
+                className="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-semibold rounded-2xl shadow-lg shadow-emerald-500/25 hover:from-emerald-600 hover:to-emerald-700 active:scale-95 transition-all duration-200"
+              >
+                <Gift className="w-5 h-5" />
+                Devenir partenaire
+                <ArrowRight className="w-4 h-4" />
+              </a>
+              <p className="text-dark-500 text-xs mt-3 flex items-center justify-center gap-1.5">
+                <Shield className="w-3.5 h-3.5" />
+                Commission versée après chaque abonnement validé · Tableau de bord dédié
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* ========== CTA FINAL ========== */}
         <section className="py-20 px-4 relative">
           <div className="absolute inset-0 -z-10">
@@ -532,9 +691,17 @@ export default function Home() {
               <br />
               <span className="text-primary-400 font-medium">3 jours d&apos;essai gratuit.</span>
             </p>
-            <a href="/auth" className="btn-primary text-lg px-10 py-4 shadow-xl shadow-primary-500/30">
-              Commencer maintenant
-            </a>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-md mx-auto">
+              <a href="/auth" className="btn-primary text-lg px-8 py-4 shadow-xl shadow-primary-500/30 w-full sm:w-auto">
+                Commencer maintenant
+              </a>
+              <a href="/auth" className="inline-flex items-center gap-2 px-6 py-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-medium rounded-2xl hover:bg-emerald-500/20 transition-all text-sm w-full sm:w-auto justify-center">
+                <Gift className="w-4 h-4" />
+                Devenir partenaire
+              </a>
+            </div>
+
             <p className="text-dark-500 text-xs mt-4">
               Pas de carte bancaire · Inscription en 30 secondes via WhatsApp
             </p>
@@ -553,6 +720,9 @@ export default function Home() {
             <div className="flex items-center gap-6 text-xs text-dark-500">
               <a href="/pricing" className="hover:text-white transition-colors">Tarifs</a>
               <a href="/auth" className="hover:text-white transition-colors">Connexion</a>
+              <a href="/auth" className="hover:text-emerald-400 transition-colors flex items-center gap-1">
+                <Gift className="w-3 h-3" /> Partenaire
+              </a>
             </div>
             <p className="text-dark-600 text-xs">
               © 2026 NeoLove. Tous droits réservés.

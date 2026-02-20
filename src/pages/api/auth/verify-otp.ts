@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { getServiceSupabase } from '@/lib/supabase'
 import { createSession } from '@/lib/auth'
 import { PLANS } from '@/lib/constants'
+import { findAffiliateByCode, registerAffiliateLead, hashPhone, hashIP } from '@/lib/affiliate-engine'
 import type { ApiResponse } from '@/lib/types'
 
 const VerifyOtpSchema = z.object({
@@ -12,6 +13,7 @@ const VerifyOtpSchema = z.object({
     .regex(/^\+?[0-9]+$/),
   otp: z.string().length(6, 'Le code doit contenir 6 chiffres'),
   name: z.string().min(2).max(50).trim(),
+  affiliate_code: z.string().optional(),
 })
 
 export default async function handler(
@@ -30,7 +32,7 @@ export default async function handler(
     })
   }
 
-  const { phone_number, otp, name } = validation.data
+  const { phone_number, otp, name, affiliate_code } = validation.data
   const supabase = getServiceSupabase()
 
   try {
@@ -98,6 +100,30 @@ export default async function handler(
         expires_at: trialExpiresAt.toISOString(),
         created_by: newUser.id,
       })
+
+      // Enregistrer le lead affilié si un code a été fourni
+      if (affiliate_code) {
+        try {
+          const affiliate = await findAffiliateByCode(affiliate_code)
+          if (affiliate && affiliate.status === 'active') {
+            const phoneH = hashPhone(phone_number)
+            const ip = (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() || req.socket.remoteAddress || ''
+            const ipH = hashIP(ip)
+            const deviceFp = (req.headers['user-agent'] || '').slice(0, 64)
+
+            await registerAffiliateLead(
+              affiliate.id,
+              affiliate.user_id,
+              newUser.id,
+              phoneH,
+              ipH,
+              deviceFp
+            )
+          }
+        } catch (affErr) {
+          console.error('[VERIFY-OTP] Erreur enregistrement lead affilié (non-bloquant):', affErr)
+        }
+      }
     }
 
     // Créer la session (et révoquer les anciennes)

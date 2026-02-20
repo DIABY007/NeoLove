@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { PLANS } from '@/lib/constants'
 import type { PlanType } from '@/lib/constants'
-import { Shield, MessageCircle, Key, CheckCircle, Clipboard, Users } from 'lucide-react'
+import { Shield, MessageCircle, Key, CheckCircle, Clipboard, Users, TrendingUp } from 'lucide-react'
 
 interface AdminUser {
   id: string
@@ -113,9 +113,14 @@ export default function AdminPage() {
       <main className="min-h-screen max-w-4xl mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-2xl font-bold text-white flex items-center gap-2"><Shield className="w-6 h-6 text-primary-400" /> Dashboard Admin</h1>
-          <button onClick={() => router.push('/chat')} className="btn-secondary text-sm py-2 px-4">
-            <span className="flex items-center gap-2"><MessageCircle className="w-4 h-4" /> Chat</span>
-          </button>
+          <div className="flex items-center gap-2">
+            <button onClick={() => router.push('/admin/affiliate')} className="btn-secondary text-sm py-2 px-4">
+              <span className="flex items-center gap-2"><TrendingUp className="w-4 h-4" /> Affiliation</span>
+            </button>
+            <button onClick={() => router.push('/chat')} className="btn-secondary text-sm py-2 px-4">
+              <span className="flex items-center gap-2"><MessageCircle className="w-4 h-4" /> Chat</span>
+            </button>
+          </div>
         </div>
 
         {/* KPI */}

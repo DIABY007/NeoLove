@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { getAuthenticatedUser } from '@/lib/auth'
 import { getServiceSupabase } from '@/lib/supabase'
 import { PLANS } from '@/lib/constants'
+import { attributeCommission } from '@/lib/affiliate-engine'
 import type { ApiResponse } from '@/lib/types'
 
 const ActivateSchema = z.object({
@@ -94,6 +95,37 @@ export default async function handler(
     if (updateError) {
       console.error('[ACTIVATE] Erreur mise à jour:', updateError)
       return res.status(500).json({ success: false, error: 'Erreur lors de l\'activation' })
+    }
+
+    // Attribution de commission affiliée (si l'utilisateur a été parrainé)
+    try {
+      const { data: userRecord } = await supabase
+        .from('users')
+        .select('referred_by')
+        .eq('id', user.id)
+        .single()
+
+      if (userRecord?.referred_by && license.plan_type !== 'trial') {
+        // Trouver le lead correspondant
+        const { data: lead } = await supabase
+          .from('affiliate_leads')
+          .select('id')
+          .eq('affiliate_id', userRecord.referred_by)
+          .eq('referred_user_id', user.id)
+          .limit(1)
+          .single()
+
+        if (lead) {
+          await attributeCommission(
+            userRecord.referred_by,
+            lead.id,
+            license.id,
+            license.plan_type
+          )
+        }
+      }
+    } catch (affErr) {
+      console.error('[ACTIVATE] Erreur attribution commission (non-bloquant):', affErr)
     }
 
     // Calculer le nombre total de jours restants pour le message
