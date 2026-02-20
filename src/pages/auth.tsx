@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import NeoLoveLogo from '@/components/NeoLoveLogo'
-import { Globe, ArrowLeft } from 'lucide-react'
+import { Globe, ArrowLeft, Gift } from 'lucide-react'
 
 type Step = 'phone' | 'otp'
 
@@ -15,17 +15,20 @@ export default function AuthPage() {
   const [otp, setOtp] = useState(['', '', '', '', '', ''])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [otpFallback, setOtpFallback] = useState('')
+  const [whatsappSent, setWhatsappSent] = useState(true)
   const otpRefs = useRef<(HTMLInputElement | null)[]>([])
 
   // Capturer le code affilié depuis l'URL (?ref=NEO-XXXX) ou sessionStorage
   const [refCode, setRefCode] = useState('')
+  const [showRefField, setShowRefField] = useState(false)
   useEffect(() => {
     const fromUrl = typeof router.query.ref === 'string' ? router.query.ref : ''
     const fromStorage = typeof window !== 'undefined' ? sessionStorage.getItem('neolove_ref') || '' : ''
     const code = fromUrl || fromStorage
     if (code) {
       setRefCode(code)
-      // Persister pour ne pas perdre entre les étapes
+      setShowRefField(true)
       sessionStorage.setItem('neolove_ref', code)
     }
   }, [router.query.ref])
@@ -34,6 +37,7 @@ export default function AuthPage() {
   const handleSendOTP = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
+    setOtpFallback('')
     setLoading(true)
 
     try {
@@ -48,6 +52,19 @@ export default function AuthPage() {
       if (!data.success) {
         setError(data.error || 'Erreur lors de l\'envoi')
         return
+      }
+
+      // Vérifier si le WhatsApp a bien été envoyé
+      setWhatsappSent(data.data?.whatsapp_sent !== false)
+
+      // Si WhatsApp a échoué, afficher le code en fallback
+      if (data.data?.otp_fallback) {
+        setOtpFallback(data.data.otp_fallback)
+      }
+
+      // Persister le code de parrainage
+      if (refCode) {
+        sessionStorage.setItem('neolove_ref', refCode)
       }
 
       setStep('otp')
@@ -81,6 +98,9 @@ export default function AuthPage() {
         otpRefs.current[0]?.focus()
         return
       }
+
+      // Nettoyer le code de parrainage utilisé
+      sessionStorage.removeItem('neolove_ref')
 
       // Rediriger vers le chat ou le profil
       if (data.data?.hasActiveLicense) {
@@ -145,7 +165,9 @@ export default function AuthPage() {
           <p className="text-dark-400 mt-2 text-sm">
             {step === 'phone'
               ? 'Entrez vos informations pour commencer'
-              : `Code envoyé sur WhatsApp au ${phoneNumber}`}
+              : whatsappSent
+                ? `Code envoyé sur WhatsApp au ${phoneNumber}`
+                : 'Entrez le code affiché ci-dessous'}
           </p>
         </div>
 
@@ -198,6 +220,37 @@ export default function AuthPage() {
                 </p>
               </div>
 
+              {/* Champ code de parrainage (facultatif) */}
+              {!showRefField ? (
+                <button
+                  type="button"
+                  onClick={() => setShowRefField(true)}
+                  className="flex items-center gap-2 text-sm text-primary-400 hover:text-primary-300 transition-colors w-full justify-center"
+                >
+                  <Gift className="w-4 h-4" />
+                  J&apos;ai un code de parrainage
+                </button>
+              ) : (
+                <div>
+                  <label className="block text-sm text-dark-300 mb-2">
+                    Code de parrainage <span className="text-dark-500">(facultatif)</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={refCode}
+                    onChange={e => setRefCode(e.target.value.toUpperCase().trim())}
+                    placeholder="Ex: NEO-XXXX"
+                    className="input-field"
+                    maxLength={20}
+                  />
+                  {refCode && (
+                    <p className="text-xs mt-1.5 text-primary-400 flex items-center gap-1">
+                      <Gift className="w-3 h-3" /> Code {refCode} sera appliqué
+                    </p>
+                  )}
+                </div>
+              )}
+
               <button
                 type="submit"
                 disabled={loading || !name || localNumber.length !== 8}
@@ -218,6 +271,21 @@ export default function AuthPage() {
             </form>
           ) : (
             <div className="space-y-6">
+              {/* Fallback: afficher le code si WhatsApp a échoué */}
+              {otpFallback && (
+                <div className="p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-2xl text-center">
+                  <p className="text-yellow-400 text-xs mb-2">
+                    ⚠️ Le message WhatsApp n&apos;a pas pu être envoyé
+                  </p>
+                  <p className="text-white text-2xl font-bold tracking-[0.3em]">
+                    {otpFallback}
+                  </p>
+                  <p className="text-dark-400 text-xs mt-2">
+                    Entrez ce code ci-dessous pour continuer
+                  </p>
+                </div>
+              )}
+
               {/* OTP Inputs */}
               <div className="flex justify-center gap-3">
                 {otp.map((digit, i) => (
@@ -254,7 +322,7 @@ export default function AuthPage() {
               </button>
 
               <button
-                onClick={() => { setStep('phone'); setOtp(['', '', '', '', '', '']); setError('') }}
+                onClick={() => { setStep('phone'); setOtp(['', '', '', '', '', '']); setError(''); setOtpFallback('') }}
                 className="text-dark-400 text-sm w-full text-center hover:text-white transition-colors flex items-center justify-center gap-1.5"
               >
                 <ArrowLeft className="w-3.5 h-3.5" /> Changer de numéro
@@ -266,4 +334,3 @@ export default function AuthPage() {
     </>
   )
 }
-

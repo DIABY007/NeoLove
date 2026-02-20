@@ -41,9 +41,18 @@ export async function sendWhatsAppMessage(
 
     const data = await response.json()
 
+    // Log complet pour debug
+    console.log(`[WASENDER] Réponse pour ${formattedNumber}: HTTP ${response.status}`, JSON.stringify(data))
+
     if (!response.ok) {
-      console.error('[WASENDER] Erreur:', data)
-      return { success: false, error: data.message || 'Erreur d\'envoi WhatsApp' }
+      console.error('[WASENDER] Erreur HTTP:', response.status, data)
+      return { success: false, error: data.message || `Erreur WhatsApp (HTTP ${response.status})` }
+    }
+
+    // Vérifier si le message a été réellement accepté
+    if (data.success === false) {
+      console.error('[WASENDER] Erreur API:', data)
+      return { success: false, error: data.message || data.error || 'Message non accepté par WhatsApp' }
     }
 
     return { success: true, data: data.data }
@@ -63,6 +72,10 @@ export async function sendOTP(phoneNumber: string, otp: string): Promise<boolean
     `Ne partagez jamais ce code avec quelqu'un d'autre.`
 
   const result = await sendWhatsAppMessage(phoneNumber, message)
+  
+  if (!result.success) {
+    console.error(`[WASENDER] OTP non envoyé pour ${phoneNumber}: ${result.error}`)
+  }
+  
   return result.success
 }
-

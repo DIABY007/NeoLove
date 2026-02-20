@@ -64,32 +64,34 @@ export default async function handler(
       return res.status(500).json({ success: false, error: 'Erreur serveur' })
     }
 
-    // Stocker le nom temporairement dans la table user si nécessaire
-    // (sera créé/mis à jour lors de la vérification)
-
     // Envoyer l'OTP via WhatsApp
     const sent = await sendOTP(phone_number, otp)
-    
+
+    // Log complet
+    console.log(`[SEND-OTP] OTP pour ${phone_number}: ${otp} | WhatsApp envoyé: ${sent}`)
+
     if (!sent) {
       console.error('[SEND-OTP] Échec envoi WhatsApp pour', phone_number)
-      // En dev, on continue quand même (l'OTP est en BDD)
-      if (process.env.NODE_ENV === 'production') {
-        return res.status(500).json({ success: false, error: 'Impossible d\'envoyer le code. Vérifiez votre numéro.' })
-      }
-    }
-
-    // Log en dev
-    if (process.env.NODE_ENV !== 'production') {
-      console.log(`[DEV] OTP pour ${phone_number}: ${otp}`)
+      // Retourner le code directement si WhatsApp échoue
+      return res.status(200).json({
+        success: true,
+        data: {
+          message: 'Le code n\'a pas pu être envoyé par WhatsApp. Utilisez le code affiché.',
+          whatsapp_sent: false,
+          otp_fallback: otp,
+        },
+      })
     }
 
     return res.status(200).json({
       success: true,
-      data: { message: 'Code envoyé sur WhatsApp' },
+      data: {
+        message: 'Code envoyé sur WhatsApp',
+        whatsapp_sent: true,
+      },
     })
   } catch (error) {
     console.error('[SEND-OTP] Erreur:', error)
     return res.status(500).json({ success: false, error: 'Erreur serveur' })
   }
 }
-
