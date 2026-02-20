@@ -59,8 +59,8 @@ export default function AuthPage() {
   }
 
   // ===== Vérification OTP =====
-  const handleVerifyOTP = async () => {
-    const otpCode = otp.join('')
+  const handleVerifyOTP = async (otpOverride?: string) => {
+    const otpCode = otpOverride || otp.join('')
     if (otpCode.length !== 6) return
 
     setError('')
@@ -108,9 +108,10 @@ export default function AuthPage() {
       otpRefs.current[index + 1]?.focus()
     }
 
-    // Auto-submit si complet
+    // Auto-submit si complet — passer le code directement pour éviter le stale closure
     if (newOtp.every(d => d !== '') && newOtp.join('').length === 6) {
-      setTimeout(() => handleVerifyOTP(), 200)
+      const completeCode = newOtp.join('')
+      setTimeout(() => handleVerifyOTP(completeCode), 200)
     }
   }
 
@@ -235,7 +236,7 @@ export default function AuthPage() {
               </div>
 
               <button
-                onClick={handleVerifyOTP}
+                onClick={() => handleVerifyOTP()}
                 disabled={loading || otp.join('').length !== 6}
                 className="btn-primary w-full"
               >
