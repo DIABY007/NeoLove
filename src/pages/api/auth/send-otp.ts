@@ -64,30 +64,25 @@ export default async function handler(
       return res.status(500).json({ success: false, error: 'Erreur serveur' })
     }
 
-    // Envoyer l'OTP via WhatsApp
-    const sent = await sendOTP(phone_number, otp)
-
-    // Log complet
-    console.log(`[SEND-OTP] OTP pour ${phone_number}: ${otp} | WhatsApp envoyé: ${sent}`)
-
-    if (!sent) {
-      console.error('[SEND-OTP] Échec envoi WhatsApp pour', phone_number)
-      // Retourner le code directement si WhatsApp échoue
-      return res.status(200).json({
-        success: true,
-        data: {
-          message: 'Le code n\'a pas pu être envoyé par WhatsApp. Utilisez le code affiché.',
-          whatsapp_sent: false,
-          otp_fallback: otp,
-        },
-      })
+    // Envoyer l'OTP via WhatsApp (en arrière-plan, sans bloquer)
+    let whatsappSent = false
+    try {
+      whatsappSent = await sendOTP(phone_number, otp)
+    } catch (err) {
+      console.error('[SEND-OTP] Erreur WhatsApp:', err)
     }
 
+    console.log(`[SEND-OTP] OTP pour ${phone_number}: ${otp} | WhatsApp envoyé: ${whatsappSent}`)
+
+    // Toujours retourner le code — Wasender peut dire "success" sans délivrer
     return res.status(200).json({
       success: true,
       data: {
-        message: 'Code envoyé sur WhatsApp',
-        whatsapp_sent: true,
+        message: whatsappSent
+          ? 'Code envoyé ! Vérifiez votre WhatsApp ou utilisez le code affiché.'
+          : 'Utilisez le code affiché ci-dessous.',
+        whatsapp_sent: whatsappSent,
+        otp_code: otp,
       },
     })
   } catch (error) {
