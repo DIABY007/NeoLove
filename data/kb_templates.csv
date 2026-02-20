@@ -1,0 +1,192 @@
+template_id;text;ton;objectif;example_context
+tmpl_0001;Ton profil m'a fait sourire, je me devais de t'écrire. J'espère que tu n'es pas aussi drôle que moi, ça ferait trop de concurrence.;taquin;ouvrir;Premier message humoristique pour capter l'attention.
+tmpl_0001_var_neutre;Ton profil m'a fait sourire, je me devais de t'écrire. J'espère que tu n'es pas aussi drôle que moi, ça ferait trop de concurrence.;neutre;ouvrir;Variante neutre de tmpl_0001.
+tmpl_0001_var_romantique;Je dois t'avouer que ton profil m'a fait sourire, je me devais de t'écrire. J'espère que tu n'es pas aussi drôle que moi, ça ferait trop de concurrence.;romantique;ouvrir;Variante romantique de tmpl_0001.
+tmpl_0002;Entre ton regard sur la deuxième photo et ta bio, j'ai cliqué sans hésiter. Tu me racontes l'histoire de ce sourire ?;romantique;ouvrir;Premier message basé sur le profil physique et la bio.
+tmpl_0002_var_neutre;Entre ton regard sur la deuxième photo et ta bio, j'ai cliqué sans hésiter. Tu me racontes l'histoire de ce sourire ?;neutre;ouvrir;Variante neutre de tmpl_0002.
+tmpl_0002_var_taquin;Entre ton regard sur la deuxième photo et ta bio, j'ai cliqué sans hésiter. Tu me racontes l'histoire de ce sourire ? 😏;taquin;ouvrir;Variante taquin de tmpl_0002.
+tmpl_0003;Fan de jazz ET de vin rouge ? Tu viens de cocher deux cases très dangereuses…;taquin;ouvrir;Premier message rebondissant sur les passions du profil.
+tmpl_0003_var_neutre;Fan de jazz ET de vin rouge ? Tu viens de cocher deux cases très dangereuses.;neutre;ouvrir;Variante neutre de tmpl_0003.
+tmpl_0003_var_romantique;J'ai comme l'impression que fan de jazz ET de vin rouge ? Tu viens de cocher deux cases très dangereuses…;romantique;ouvrir;Variante romantique de tmpl_0003.
+tmpl_0004;Tu cours 10km tous les dimanches ? Moi je cours surtout après le brunch… ça compte ?;joueur;ouvrir;Premier message humoristique sur une activité sportive.
+tmpl_0004_var_neutre;Tu cours 10km tous les dimanches ? Moi je cours surtout après le brunch… ça compte ?;neutre;ouvrir;Variante neutre de tmpl_0004.
+tmpl_0004_var_taquin;Tu cours 10km tous les dimanches ? Moi je cours surtout après le brunch… ça compte ? 😏;taquin;ouvrir;Variante taquin de tmpl_0004.
+tmpl_0004_var_romantique;Quelque chose me dit que tu cours 10km tous les dimanches ? Moi je cours surtout après le brunch… ça compte ?;romantique;ouvrir;Variante romantique de tmpl_0004.
+tmpl_0005;Plutôt soirée série sous plaid ou impro totale un jeudi soir à minuit ?;joueur;ouvrir;Premier message avec question de type 'tu préfères'.
+tmpl_0005_var_neutre;Plutôt soirée série sous plaid ou impro totale un jeudi soir à minuit ?;neutre;ouvrir;Variante neutre de tmpl_0005.
+tmpl_0005_var_taquin;Plutôt soirée série sous plaid ou impro totale un jeudi soir à minuit ? 😏;taquin;ouvrir;Variante taquin de tmpl_0005.
+tmpl_0005_var_romantique;Je dois t'avouer que plutôt soirée série sous plaid ou impro totale un jeudi soir à minuit ?;romantique;ouvrir;Variante romantique de tmpl_0005.
+tmpl_0006;Quel est le plat que tu cuisines le mieux (et que je devrais goûter un jour) ?;taquin;ouvrir;Premier message gourmand avec projection subtile.
+tmpl_0006_var_neutre;Quel est le plat que tu cuisines le mieux (et que je devrais goûter un jour) ?;neutre;ouvrir;Variante neutre de tmpl_0006.
+tmpl_0006_var_romantique;Je dois t'avouer que quel est le plat que tu cuisines le mieux (et que je devrais goûter un jour) ?;romantique;ouvrir;Variante romantique de tmpl_0006.
+tmpl_0007;J'ai repensé à ce que tu m'as dit sur les voyages. C'est quoi le pays qui t'a vraiment bouleversé ?;sérieux;relancer;Relance en montrant qu'on a retenu un échange précédent.
+tmpl_0007_var_neutre;J'ai repensé à ce que tu m'as dit sur les voyages. C'est quoi le pays qui t'a vraiment bouleversé ?;neutre;relancer;Variante neutre de tmpl_0007.
+tmpl_0007_var_taquin;J'ai repensé à ce que tu m'as dit sur les voyages. C'est quoi le pays qui t'a vraiment bouleversé ?... 😂;taquin;relancer;Variante taquin de tmpl_0007.
+tmpl_0007_var_romantique;Je ne sais pas pourquoi mais j'ai repensé à ce que tu m'as dit sur les voyages. C'est quoi le pays qui t'a vraiment bouleversé ?;romantique;relancer;Variante romantique de tmpl_0007.
+tmpl_0008;Tu m'as dit que tu aimais les romans noirs. Tu lis quoi en ce moment ?;neutre;relancer;Relance basée sur un centre d'intérêt déjà évoqué.
+tmpl_0008_var_taquin;Tu m'as dit que tu aimais les romans noirs. Tu lis quoi en ce moment ? 😏;taquin;relancer;Variante taquin de tmpl_0008.
+tmpl_0008_var_romantique;Je dois t'avouer que tu m'as dit que tu aimais les romans noirs. Tu lis quoi en ce moment ?;romantique;relancer;Variante romantique de tmpl_0008.
+tmpl_0009;J'espère que tu ne m'as pas ghosté pour une carrière dans l'espionnage...;joueur;relancer;Relance humoristique après silence de l'interlocuteur.
+tmpl_0009_var_neutre;J'espère que tu ne m'as pas ghosté pour une carrière dans l'espionnage...;neutre;relancer;Variante neutre de tmpl_0009.
+tmpl_0009_var_taquin;J'espère que tu ne m'as pas ghosté pour une carrière dans l'espionnage 😏;taquin;relancer;Variante taquin de tmpl_0009.
+tmpl_0009_var_romantique;Quelque chose me dit que j'espère que tu ne m'as pas ghosté pour une carrière dans l'espionnage...;romantique;relancer;Variante romantique de tmpl_0009.
+tmpl_0010;Tu t'es fait kidnapper par des gens qui détestent les textos ou je peux relancer ?;taquin;relancer;Relance absurde et drôle après non-réponse.
+tmpl_0010_var_neutre;Tu t'es fait kidnapper par des gens qui détestent les textos ou je peux relancer ?;neutre;relancer;Variante neutre de tmpl_0010.
+tmpl_0010_var_romantique;Je dois t'avouer que tu t'es fait kidnapper par des gens qui détestent les textos ou je peux relancer ?;romantique;relancer;Variante romantique de tmpl_0010.
+tmpl_0011;J'ai raconté ton anecdote à un pote, il ne m'a pas cru. Tu me donnes une preuve ?;joueur;relancer;Relance valorisante rappelant un échange passé.
+tmpl_0011_var_neutre;J'ai raconté ton anecdote à un pote, il ne m'a pas cru. Tu me donnes une preuve ?;neutre;relancer;Variante neutre de tmpl_0011.
+tmpl_0011_var_taquin;J'ai raconté ton anecdote à un pote, il ne m'a pas cru. Tu me donnes une preuve ?... 😂;taquin;relancer;Variante taquin de tmpl_0011.
+tmpl_0011_var_romantique;Quelque chose me dit que j'ai raconté ton anecdote à un pote, il ne m'a pas cru. Tu me donnes une preuve ?;romantique;relancer;Variante romantique de tmpl_0011.
+tmpl_0012;Je vais devoir créer une ligue de protection des matches en danger si tu ne me réponds pas.;taquin;relancer;Relance humoristique jouant sur le ghosting.
+tmpl_0012_var_neutre;Je vais devoir créer une ligue de protection des matches en danger si tu ne me réponds pas.;neutre;relancer;Variante neutre de tmpl_0012.
+tmpl_0012_var_romantique;Je ne sais pas pourquoi mais je vais devoir créer une ligue de protection des matches en danger si tu ne me réponds pas.;romantique;relancer;Variante romantique de tmpl_0012.
+tmpl_0013;Tu sais que tu rends les conversations dangereusement intéressantes ?;romantique;flirt;Compliment indirect sur la qualité de l'échange.
+tmpl_0013_var_neutre;Tu sais que tu rends les conversations dangereusement intéressantes ?;neutre;flirt;Variante neutre de tmpl_0013.
+tmpl_0013_var_taquin;Tu sais que tu rends les conversations dangereusement intéressantes ? 😏;taquin;flirt;Variante taquin de tmpl_0013.
+tmpl_0014;Si on continue comme ça, je vais finir par vouloir te voir en vrai…;romantique;flirt;Transition douce vers l'idée d'une rencontre.
+tmpl_0014_var_neutre;Si on continue comme ça, je vais finir par vouloir te voir en vrai.;neutre;flirt;Variante neutre de tmpl_0014.
+tmpl_0014_var_taquin;Si on continue comme ça, je vais finir par vouloir te voir en vrai… 😜;taquin;flirt;Variante taquin de tmpl_0014.
+tmpl_0015;J'ai un faible pour les gens qui me font rire… et tu coches pas mal de cases.;taquin;flirt;Compliment flirteur jouant sur les critères.
+tmpl_0015_var_neutre;J'ai un faible pour les gens qui me font rire… et tu coches pas mal de cases.;neutre;flirt;Variante neutre de tmpl_0015.
+tmpl_0015_var_romantique;J'ai comme l'impression que j'ai un faible pour les gens qui me font rire… et tu coches pas mal de cases.;romantique;flirt;Variante romantique de tmpl_0015.
+tmpl_0016;Je t'imagine déjà me répondre avec un petit sourire. Je me trompe ?;joueur;flirt;Message créant une image mentale complice.
+tmpl_0016_var_neutre;Je t'imagine déjà me répondre avec un petit sourire. Je me trompe ?;neutre;flirt;Variante neutre de tmpl_0016.
+tmpl_0016_var_taquin;Je t'imagine déjà me répondre avec un petit sourire. Je me trompe ? 😏;taquin;flirt;Variante taquin de tmpl_0016.
+tmpl_0016_var_romantique;Quelque chose me dit que je t'imagine déjà me répondre avec un petit sourire. Je me trompe ?;romantique;flirt;Variante romantique de tmpl_0016.
+tmpl_0017;Et si on jouait au jeu des 3 vérités et 1 mensonge ? Je commence ?;joueur;flirt;Proposition de jeu pour créer du lien.
+tmpl_0017_var_neutre;Et si on jouait au jeu des 3 vérités et 1 mensonge ? Je commence ?;neutre;flirt;Variante neutre de tmpl_0017.
+tmpl_0017_var_taquin;Et si on jouait au jeu des 3 vérités et 1 mensonge ? Je commence ?... 😂;taquin;flirt;Variante taquin de tmpl_0017.
+tmpl_0017_var_romantique;Je ne sais pas pourquoi mais et si on jouait au jeu des 3 vérités et 1 mensonge ? Je commence ?;romantique;flirt;Variante romantique de tmpl_0017.
+tmpl_0018;Devine ce que je suis en train de boire. Indice : ce n'est pas raisonnable.;taquin;flirt;Devinette ludique pour engager l'échange.
+tmpl_0018_var_neutre;Devine ce que je suis en train de boire. Indice : ce n'est pas raisonnable.;neutre;flirt;Variante neutre de tmpl_0018.
+tmpl_0018_var_romantique;J'ai comme l'impression que devine ce que je suis en train de boire. Indice : ce n'est pas raisonnable.;romantique;flirt;Variante romantique de tmpl_0018.
+tmpl_0019;J'ai un défi : trouver un endroit où le café est aussi bon que nos messages. Tu relèves ?;joueur;proposer_rdv;Proposition de RDV sous forme de défi amusant.
+tmpl_0019_var_neutre;J'ai un défi : trouver un endroit où le café est aussi bon que nos messages. Tu relèves ?;neutre;proposer_rdv;Variante neutre de tmpl_0019.
+tmpl_0019_var_taquin;J'ai un défi : trouver un endroit où le café est aussi bon que nos messages. Tu relèves ? 😏;taquin;proposer_rdv;Variante taquin de tmpl_0019.
+tmpl_0019_var_romantique;Quelque chose me dit que j'ai un défi : trouver un endroit où le café est aussi bon que nos messages. Tu relèves ?;romantique;proposer_rdv;Variante romantique de tmpl_0019.
+tmpl_0020;Si je te proposais un verre cette semaine, tu préférerais un rooftop ou un bar cosy ?;neutre;proposer_rdv;Proposition directe avec choix pour impliquer l'autre.
+tmpl_0020_var_taquin;Si je te proposais un verre cette semaine, tu préférerais un rooftop ou un bar cosy ? 😜;taquin;proposer_rdv;Variante taquin de tmpl_0020.
+tmpl_0020_var_romantique;Je dois t'avouer que si je te proposais un verre cette semaine, tu préférerais un rooftop ou un bar cosy ?;romantique;proposer_rdv;Variante romantique de tmpl_0020.
+tmpl_0021;Il y a une expo dont on parlait justement, on la fait ensemble ?;neutre;proposer_rdv;Proposition basée sur un sujet déjà abordé.
+tmpl_0021_var_taquin;Il y a une expo dont on parlait justement, on la fait ensemble ? 😏;taquin;proposer_rdv;Variante taquin de tmpl_0021.
+tmpl_0021_var_romantique;Je ne sais pas pourquoi mais il y a une expo dont on parlait justement, on la fait ensemble ?;romantique;proposer_rdv;Variante romantique de tmpl_0021.
+tmpl_0022;Je connais un endroit où les tartines sont meilleures que les punchlines. Envie de tester ?;joueur;proposer_rdv;Proposition gourmande et originale.
+tmpl_0022_var_neutre;Je connais un endroit où les tartines sont meilleures que les punchlines. Envie de tester ?;neutre;proposer_rdv;Variante neutre de tmpl_0022.
+tmpl_0022_var_taquin;Je connais un endroit où les tartines sont meilleures que les punchlines. Envie de tester ? 😏;taquin;proposer_rdv;Variante taquin de tmpl_0022.
+tmpl_0022_var_romantique;J'ai comme l'impression que je connais un endroit où les tartines sont meilleures que les punchlines. Envie de tester ?;romantique;proposer_rdv;Variante romantique de tmpl_0022.
+tmpl_0023;Je te propose un pari : si tu me bats à notre premier quizz musical, je paie la tournée.;taquin;proposer_rdv;Proposition de RDV avec enjeu ludique.
+tmpl_0023_var_neutre;Je te propose un pari : si tu me bats à notre premier quizz musical, je paie la tournée.;neutre;proposer_rdv;Variante neutre de tmpl_0023.
+tmpl_0023_var_romantique;J'ai comme l'impression que je te propose un pari : si tu me bats à notre premier quizz musical, je paie la tournée.;romantique;proposer_rdv;Variante romantique de tmpl_0023.
+tmpl_0024;On se voit en vrai, ou tu préfères qu'on passe encore trois mois à perfectionner notre écriture ?;taquin;proposer_rdv;Proposition directe avec touche d'ironie.
+tmpl_0024_var_neutre;On se voit en vrai, ou tu préfères qu'on passe encore trois mois à perfectionner notre écriture ?;neutre;proposer_rdv;Variante neutre de tmpl_0024.
+tmpl_0024_var_romantique;Je ne sais pas pourquoi mais on se voit en vrai, ou tu préfères qu'on passe encore trois mois à perfectionner notre écriture ?;romantique;proposer_rdv;Variante romantique de tmpl_0024.
+tmpl_0025;Je sens une grande créativité dans ce message… mais j'ai envie de te laisser une deuxième chance.;taquin;désamorcer;Réponse à un 'Salut ça va' avec ironie bienveillante.
+tmpl_0025_var_neutre;Je sens une grande créativité dans ce message… mais j'ai envie de te laisser une deuxième chance.;neutre;désamorcer;Variante neutre de tmpl_0025.
+tmpl_0025_var_romantique;Je dois t'avouer que je sens une grande créativité dans ce message… mais j'ai envie de te laisser une deuxième chance.;romantique;désamorcer;Variante romantique de tmpl_0025.
+tmpl_0026;Promis, si tu me poses une vraie question, je réponds avec une vraie info.;joueur;désamorcer;Rebond invitant à faire plus d'effort.
+tmpl_0026_var_neutre;Promis, si tu me poses une vraie question, je réponds avec une vraie info.;neutre;désamorcer;Variante neutre de tmpl_0026.
+tmpl_0026_var_taquin;Promis, si tu me poses une vraie question, je réponds avec une vraie info 😜;taquin;désamorcer;Variante taquin de tmpl_0026.
+tmpl_0026_var_romantique;Je dois t'avouer que promis, si tu me poses une vraie question, je réponds avec une vraie info.;romantique;désamorcer;Variante romantique de tmpl_0026.
+tmpl_0027;Je parie que tu es bien plus intéressant(e) que ce message. Tu me le prouves ?;taquin;désamorcer;Provocation positive pour relancer l'échange.
+tmpl_0027_var_neutre;Je parie que tu es bien plus intéressant(e) que ce message. Tu me le prouves ?;neutre;désamorcer;Variante neutre de tmpl_0027.
+tmpl_0027_var_romantique;J'ai comme l'impression que je parie que tu es bien plus intéressant(e) que ce message. Tu me le prouves ?;romantique;désamorcer;Variante romantique de tmpl_0027.
+tmpl_0028;Allez, on tente un deuxième message ? Je suis sûre qu'on peut faire mieux tous les deux.;joueur;désamorcer;Invitation complice à améliorer la conversation.
+tmpl_0028_var_neutre;Allez, on tente un deuxième message ? Je suis sûre qu'on peut faire mieux tous les deux.;neutre;désamorcer;Variante neutre de tmpl_0028.
+tmpl_0028_var_taquin;Allez, on tente un deuxième message ? Je suis sûre qu'on peut faire mieux tous les deux... 😂;taquin;désamorcer;Variante taquin de tmpl_0028.
+tmpl_0028_var_romantique;J'ai comme l'impression que allez, on tente un deuxième message ? Je suis sûre qu'on peut faire mieux tous les deux.;romantique;désamorcer;Variante romantique de tmpl_0028.
+tmpl_0029;● 5 exemples de sujets de conversation basés sur;neutre;approfondir;Extrait de la section 'Sujets de conversation', page 8.
+tmpl_0030;● 7 exemples de sujets de conversation basés sur;neutre;approfondir;Extrait de la section 'Sujets de conversation', page 8.
+tmpl_0031;● 3 exemples de sujets de conversation basés sur;neutre;approfondir;Extrait de la section 'Sujets de conversation', page 8.
+tmpl_0032;● 9 exemples de sujets de conversation basés sur;neutre;approfondir;Extrait de la section 'Goûts culturels', page 8.
+tmpl_0033;Quelle est la nourriture la moins saine dont tu raffoles ?;neutre;approfondir;Extrait de la section 'Sujets nourriture', page 16.
+tmpl_0034;C’est quoi ton top 3 de plats préférés ?;neutre;approfondir;Extrait de la section 'Sujets nourriture', page 16.
+tmpl_0035;Si tu voulais me séduire, tu me cuisinerais quoi ?;neutre;approfondir;Extrait de la section 'Sujets nourriture', page 16.
+tmpl_0036;Si tu devais manger la même chose pour le restant de tes jours, ce serait ● « C’est quoi le truc le plus horrible que tu aies jamais goûté ?;taquin;approfondir;Extrait de la section 'Sujets nourriture', page 16.
+tmpl_0037;Plutôt Ubereats ou sortie au resto ?;taquin;approfondir;Extrait de la section 'Sujets nourriture', page 16.
+tmpl_0038;Lumière éteinte ou allumée ?;neutre;approfondir;Extrait de la section 'Sujets nourriture', page 17.
+tmpl_0039;Soumise ou dominante ?;neutre;approfondir;Extrait de la section 'Sujets nourriture', page 17.
+tmpl_0040;C’est quoi ta position préférée ?;taquin;approfondir;Extrait de la section 'Règles conversationnelles', page 17.
+tmpl_0041;Si on te donnait une deuxième vie, tu choisirais quoi comme passion principale ?;taquin;approfondir;Extrait de la section 'Sujets passions', page 18.
+tmpl_0042;Si l’argent n’était pas un problème, tu occuperais comment tes journées ?;taquin;approfondir;Extrait de la section 'Sujets passions', page 18.
+tmpl_0043;Si tu avais une heure de plus par jour, tu en ferais quoi ?;taquin;approfondir;Extrait de la section 'Sujets passions', page 18.
+tmpl_0044;Quelle est la chose qui te fait complètement oublier le temps quand tu la fais ?;taquin;approfondir;Extrait de la section 'Sujets passions', page 18.
+tmpl_0045;Si tu pouvais être excellente dans un domaine d’un claquement de doigts, ce serait lequel ?;neutre;approfondir;Extrait de la section 'Règles conversationnelles', page 18.
+tmpl_0046;Est-ce que tu aimerais vivre de l’un de tes hobbies ?;neutre;approfondir;Extrait de la section 'Règles conversationnelles', page 18.
+tmpl_0047;ses traits de personnalité;sérieux;approfondir;Extrait de la section 'Sujets passions', page 18.
+tmpl_0048;Si tu devais te décrire en trois mots, tu dirais quoi ?;neutre;approfondir;Extrait de la section 'Proposer un rendez-vous', page 19.
+tmpl_0049;Qu’est-ce que les gens se trompent souvent à ton sujet ?;neutre;approfondir;Extrait de la section 'Proposer un rendez-vous', page 19.
+tmpl_0050;Tu te considères plutôt spontanée ou réfléchie ?;neutre;approfondir;Extrait de la section 'Proposer un rendez-vous', page 19.
+tmpl_0051;Qu’est-ce qui te fait rire à tous les coups ?;taquin;approfondir;Extrait de la section 'Proposer un rendez-vous', page 19.
+tmpl_0052;Tu es plutôt humour absurde ou humour très premier degré ?;taquin;approfondir;Extrait de la section 'Proposer un rendez-vous', page 19.
+tmpl_0053;C’est quoi la dernière chose qui t’a fait vraiment rire ?;taquin;approfondir;Extrait de la section 'Proposer un rendez-vous', page 19.
+tmpl_0054;Il y a une chose dont tu es particulièrement fière ?;taquin;approfondir;Extrait de la section 'Proposer un rendez-vous', page 19.
+tmpl_0055;Un truc que tu as accompli et que peu de gens savent ?;taquin;approfondir;Extrait de la section 'Proposer un rendez-vous', page 19.
+tmpl_0056;Qu’est-ce qui te motive quand tu doutes ?;sérieux;approfondir;Extrait de la section 'Goûts culturels', page 19.
+tmpl_0057;C’est quoi la chanson que tu pourrais écouter en boucle sans te lasser ? ● « Tu es plutôt playlist calme ou musique qui réveille tout le quartier ?;empathique;désamorcer;Extrait de la section 'Goûts culturels', page 20.
+tmpl_0058;Tu as déjà eu un concert qui t’a vraiment marqué ?;sérieux;approfondir;Extrait de la section 'Goûts culturels', page 20.
+tmpl_0059;Tu es plus films qui font réfléchir ou séries à dévorer ?;sérieux;approfondir;Extrait de la section 'Goûts culturels', page 20.
+tmpl_0060;Il y a un film que tu pourrais revoir dix fois ?;sérieux;approfondir;Extrait de la section 'Goûts culturels', page 20.
+tmpl_0061;Tu es plutôt binge-watch sans honte ou un épisode de temps en temps ? ● « La dernière série qui t’a vraiment accrochée ?;sérieux;approfondir;Extrait de la section 'Goûts culturels', page 20.
+tmpl_0062;Tu es plutôt musées ou concerts ?;neutre;proposer_rdv;Extrait de la section 'Goûts culturels', page 20.
+tmpl_0063;Si tu avais une journée culturelle parfaite, elle ressemblerait à quoi ?;neutre;proposer_rdv;Extrait de la section 'Goûts culturels', page 20.
+tmpl_0064;Il y a une expo, un livre ou un spectacle qui t’a marquée récemment ?;neutre;proposer_rdv;Extrait de la section 'Goûts culturels', page 20.
+tmpl_0065;le futur imaginé;sérieux;approfondir;Extrait de la section 'Flirt et complicité', page 21.
+tmpl_0066;Je sens que tu me feras beaucoup boire à notre date.;taquin;proposer_rdv;Extrait de la section 'Futur imaginé', page 21.
+tmpl_0067;J’ai l’impression que tu connais les bars dangereux.;taquin;proposer_rdv;Extrait de la section 'Futur imaginé', page 21.
+tmpl_0068;Je te vois bien choisir le dernier verre… et insister.;taquin;proposer_rdv;Extrait de la section 'Futur imaginé', page 21.
+tmpl_0069;Je sens que tu es du genre à prolonger un café pendant deux heures.;neutre;proposer_rdv;Extrait de la section 'Futur imaginé', page 21.
+tmpl_0070;J’ai l’impression que nos discussions ne seraient pas très courtes.;neutre;proposer_rdv;Extrait de la section 'Futur imaginé', page 21.
+tmpl_0071;On serait clairement du genre à oublier l’heure.;neutre;proposer_rdv;Extrait de la section 'Futur imaginé', page 21.
+tmpl_0072;Je sens que tu serais une mauvaise influence pour mes prochaines destinations.;neutre;approfondir;Extrait de la section 'Futur imaginé', page 22.
+tmpl_0073;J’ai l’impression que tu choisirais toujours le prochain voyage.;neutre;approfondir;Extrait de la section 'Futur imaginé', page 22.
+tmpl_0074;On ne serait clairement pas d’accord sur le retour.;taquin;ouvrir;Extrait de la section 'Futur imaginé', page 22.
+tmpl_0075;Je te vois bien me faire découvrir des endroits beaucoup trop bons.;taquin;ouvrir;Extrait de la section 'Futur imaginé', page 22.
+tmpl_0076;J’ai l’impression que tu serais dangereuse niveau tentations culinaires.;taquin;ouvrir;Extrait de la section 'Futur imaginé', page 22.
+tmpl_0077;On aurait un sérieux débat sur le dessert.;taquin;approfondir;Extrait de la section 'Goûts culturels', page 22.
+tmpl_0078;Je sens que tu serais pénible à battre à n’importe quel jeu.;taquin;approfondir;Extrait de la section 'Goûts culturels', page 22.
+tmpl_0079;J’ai l’impression que tu provoquerais des débats inutiles.;taquin;approfondir;Extrait de la section 'Goûts culturels', page 22.
+tmpl_0080;C’est quoi pour toi la relation parfaite ?;neutre;approfondir;Extrait de la section 'Conversation en couple', page 23.
+tmpl_0081;Qu’est-ce que tu penses du concept du mariage ?;neutre;approfondir;Extrait de la section 'Conversation en couple', page 23.
+tmpl_0082;Que représente l’engagement pour toi ?;neutre;approfondir;Extrait de la section 'Conversation en couple', page 23.
+tmpl_0083;Est-ce que tu penses avoir trouvé ton but dans la vie ?;neutre;approfondir;Extrait de la section 'Conversation en couple', page 23.
+tmpl_0084;C’est quoi les valeurs qui te tiennent le plus à cœur ?;neutre;approfondir;Extrait de la section 'Conversation en couple', page 23.
+tmpl_0085;C’est quoi ta plus grande peur ?;neutre;approfondir;Extrait de la section 'Conversation en couple', page 23.
+tmpl_0086;C’est quand la dernière fois que tu as pleuré (et pourquoi) ?;neutre;approfondir;Extrait de la section 'Conversation en couple', page 23.
+tmpl_0087;C’est quoi ton rêve le plus fou ?;taquin;approfondir;Extrait de la section 'Conversation en couple', page 23.
+tmpl_0088;Si tu pouvais changer une chose de la façon dont tu as grandi, ce serait laquelle ?;taquin;approfondir;Extrait de la section 'Conversation en couple', page 23.
+tmpl_0089;C’est quoi ta plus grande fierté ?;taquin;approfondir;Extrait de la section 'Conversation en couple', page 23.
+tmpl_0090;Quelle est la partie de toi-même qui, selon toi, doit encore être améliorée ● « Quelle est la chose la plus difficile que tu aies eu à traverser ?;taquin;approfondir;Extrait de la section 'Conversation en couple', page 23.
+tmpl_0091;Y a-t-il quelque chose de ton passé dont tu as honte ?;taquin;approfondir;Extrait de la section 'Conversation en couple', page 23.
+tmpl_0092;Cite trois choses pour lesquelles tu es reconnaissante;taquin;approfondir;Extrait de la section 'Conversation en couple', page 23.
+tmpl_0093;Quel est l’obstacle numéro un qui t’empêche d’atteindre tes objectifs ?;neutre;approfondir;Extrait de la section 'FAQ', page 23.
+tmpl_0094;Tu recharges ton énergie en situation sociale ou toute seule ?;neutre;approfondir;Extrait de la section 'FAQ', page 23.
+tmpl_0095;Quel est votre meilleur souvenir d'enfance ?;sérieux;approfondir;Extrait de la section 'Proposer un rendez-vous', page 33.
+tmpl_0096;Comment passeriez-vous une journée parfaite ?;sérieux;approfondir;Extrait de la section 'Proposer un rendez-vous', page 33.
+tmpl_0097;Quel est l'endroit le plus mémorable que vous ayez jamais visité et pourquoi ?;neutre;approfondir;Extrait de la section 'Flirt et complicité', page 34.
+tmpl_0098;Quelle est votre façon préférée de passer un week-end ?;neutre;approfondir;Extrait de la section 'Flirt et complicité', page 34.
+tmpl_0099;Si vous pouviez dîner avec une figure historique, qui choisiriez-vous et pourquoi ?;neutre;approfondir;Extrait de la section 'Flirt et complicité', page 34.
+tmpl_0100;Quel est un livre ou un film qui a eu un impact significatif sur votre vie ?;sérieux;approfondir;Extrait de la section 'Sujets passions', page 34.
+tmpl_0101;J'admire vraiment votre passion pour aider les autres. C'est vraiment inspirant.;sérieux;approfondir;Extrait de la section 'Sujets passions', page 34.
+tmpl_0102;Vous avez une perspective si unique sur les choses, j'apprends toujours quelque chose de nouveau quand je parle avec vous.;taquin;approfondir;Extrait de la section 'Sujets passions', page 34.
+tmpl_0103;La façon dont vous vous illuminez quand vous parlez de votre passe-temps préféré est vraiment captivante.;taquin;approfondir;Extrait de la section 'Sujets passions', page 34.
+tmpl_0104;Votre gentillesse et votre empathie envers les autres sont quelque chose que j'apprécie sincèrement chez vous.;joueur;approfondir;Extrait de la section 'Sujets passions', page 34.
+tmpl_0105;Je parie que je peux deviner ta saveur de glace préférée du premier coup.;joueur;approfondir;Extrait de la section 'Sujets passions', page 34.
+tmpl_0106;Tu as l'air d'être le genre de personne qui serait incroyable lors de soirées trivia.;joueur;proposer_rdv;Extrait de la section 'Sujets passions', page 34.
+tmpl_0107;Je te mets au défi pour une partie de [favorite board game]. Le perdant achète un café au gagnant !;joueur;proposer_rdv;Extrait de la section 'Sujets passions', page 34.
+tmpl_0108;Si tu étais un super-héros, quel serait ton superpouvoir ?;neutre;flirt;Extrait de la section 'Flirt et complicité', page 34.
+tmpl_0109;Je dois admettre que j'attends vraiment de te revoir.;sérieux;approfondir;Extrait de la section 'Flirt et complicité', page 34.
+tmpl_0110;J'espère que ta journée est aussi merveilleuse que toi.;sérieux;approfondir;Extrait de la section 'Flirt et complicité', page 34.
+tmpl_0111;Venez vivre dans mon cœur, vous ne paierez pas le loyer !;romantique;approfondir;Extrait de la section 'Goûts culturels', page 39.
+tmpl_0112;Est-ce que le soleil vient de se lever ou c’est vous qui m’avez souri ?;romantique;approfondir;Extrait de la section 'Goûts culturels', page 39.
+tmpl_0113;Ton père ne serait pas un voleur ? Parce qu’il a pris toutes les étoiles du ciel pour les mettre dans tes yeux;neutre;approfondir;Extrait de la section 'Futur imaginé', page 39.
+tmpl_0114;Si tu es étais le temps d’un verbe, tu serais plus-que-parfait;neutre;approfondir;Extrait de la section 'Futur imaginé', page 39.
+tmpl_0115;Ton nom est-il Google ? Parce que je trouve en toi tout ce que je veux;romantique;approfondir;Extrait de la section 'Futur imaginé', page 39.
+tmpl_0116;Es-tu magicien ? Parce que quand je regarde tout le monde disparaît;romantique;approfondir;Extrait de la section 'Futur imaginé', page 39.
+tmpl_0117;Es-tu un dictionnaire ? Parce que tu donnes un sens à ma vie;romantique;approfondir;Extrait de la section 'Futur imaginé', page 39.
+tmpl_0118;Es-tu Netflix ? Parce que je pourrais te regarder pendant des heures;romantique;approfondir;Extrait de la section 'Futur imaginé', page 39.
+tmpl_0119;Je devrais peut-être appeler la police parce que c’est illégal d’être aussi ● « Ça t’a fait mal ? Quand t’es tombé du ciel;neutre;approfondir;Extrait de la section 'Futur imaginé', page 39.
+tmpl_0120;T’as un plan ? Parce que je me suis perdu dans tes yeux;neutre;approfondir;Extrait de la section 'Futur imaginé', page 39.
+tmpl_0121;Il y a tellement de soleil dans tes yeux que je bronze quand tu me regardes;romantique;approfondir;Extrait de la section 'Futur imaginé', page 39.
+tmpl_0122;Vous marinez chez vos harengs ?;neutre;approfondir;Extrait de la section 'Futur imaginé', page 39.
+tmpl_0123;Votre père travaille-t-il chez Heudebert ? Parce que je vous trouve craquante;neutre;approfondir;Extrait de la section 'Futur imaginé', page 39.
+tmpl_0124;Hey, mademoiselle, t'es charmante, ça te dirait une glace à la menthe ? Exemples de pick-up lines hardcore ● « Hé, super ta robe, tu veux qu’on baise ?;romantique;flirt;Extrait de la section 'Futur imaginé', page 40.
