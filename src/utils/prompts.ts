@@ -1,4 +1,5 @@
 import type { ToneId } from '@/lib/constants'
+import { correctGeneratedResponses } from './grammar-corrector'
 
 /**
  * Descriptions détaillées pour chaque ton
@@ -113,21 +114,25 @@ export function parseGeneratedResponses(rawResponse: string): string[] {
     .filter(part => part.length > 0 && part.length < 500)
 
   // S'assurer d'avoir entre 2 et 3 réponses
+  let responses: string[] = []
   if (parts.length >= 2) {
-    return parts.slice(0, 3)
+    responses = parts.slice(0, 3)
+  } else {
+    // Fallback : essayer de séparer par numérotation (1., 2., 3.)
+    const numbered = rawResponse
+      .split(/\n\d+[\.\)]\s*/)
+      .map(part => part.trim())
+      .filter(part => part.length > 0 && part.length < 500)
+
+    if (numbered.length >= 2) {
+      responses = numbered.slice(0, 3)
+    } else {
+      // Dernier recours : retourner le message complet comme une seule proposition
+      responses = [rawResponse.trim()]
+    }
   }
 
-  // Fallback : essayer de séparer par numérotation (1., 2., 3.)
-  const numbered = rawResponse
-    .split(/\n\d+[\.\)]\s*/)
-    .map(part => part.trim())
-    .filter(part => part.length > 0 && part.length < 500)
-
-  if (numbered.length >= 2) {
-    return numbered.slice(0, 3)
-  }
-
-  // Dernier recours : retourner le message complet comme une seule proposition
-  return [rawResponse.trim()]
+  // Corriger les fautes de grammaire et d'orthographe
+  return correctGeneratedResponses(responses)
 }
 
