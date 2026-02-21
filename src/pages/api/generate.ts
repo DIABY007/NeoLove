@@ -10,14 +10,17 @@ import type { ApiResponse, GenerateResponse } from '@/lib/types'
 import type { ToneId } from '@/lib/constants'
 
 const GenerateSchema = z.object({
-  input_message: z.string()
-    .min(1, 'Le message ne peut pas être vide')
+  receivedMessage: z.string()
+    .min(1, 'Le message reçu ne peut pas être vide')
     .max(APP_CONFIG.maxInputLength, `Maximum ${APP_CONFIG.maxInputLength} caractères`),
-  tone: z.enum(['neutre', 'taquin', 'sérieux', 'romantique', 'joueur', 'empathique'] as const),
-  context: z.string()
+  lastUserMessage: z.string()
+    .max(APP_CONFIG.maxInputLength, `Maximum ${APP_CONFIG.maxInputLength} caractères`)
+    .optional(),
+  additionalContext: z.string()
     .max(APP_CONFIG.maxContextLength, `Maximum ${APP_CONFIG.maxContextLength} caractères`)
     .optional()
     .default(''),
+  tone: z.enum(['neutre', 'taquin', 'sérieux', 'romantique', 'joueur', 'empathique'] as const),
   objective: z.string().optional().default(''),
 })
 
@@ -81,15 +84,15 @@ export default async function handler(
     })
   }
 
-  const { input_message, tone, context, objective } = validation.data
+  const { receivedMessage, lastUserMessage, additionalContext, tone, objective } = validation.data
 
   try {
     // 5. RAG léger : récupérer des templates pertinents
-    const ragContext = getRelevantTemplates(input_message, tone as ToneId)
+    const ragContext = getRelevantTemplates(receivedMessage, tone as ToneId)
 
     // 6. Construire les prompts (avec objectif si fourni)
     const systemPrompt = buildSystemPrompt(tone as ToneId, ragContext, objective || undefined)
-    const userMessage = buildUserMessage(input_message, context)
+    const userMessage = buildUserMessage(receivedMessage, lastUserMessage, additionalContext)
 
     // 7. Appel LLM via OpenRouter
     const rawResponse = await callOpenRouter([
@@ -106,9 +109,9 @@ export default async function handler(
       .from('generations')
       .insert({
         user_id: user.id,
-        input_message,
+        input_message: receivedMessage,
         tone,
-        context: context || null,
+        context: additionalContext || null,
         outputs: JSON.stringify(outputs),
       })
       .select('id')

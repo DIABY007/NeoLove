@@ -69,6 +69,61 @@ ${toneInstruction}
 ${objectiveInstruction ? `\n${objectiveInstruction}\n` : ''}
 ${CONVERSATION_RULES}
 
+═══════════════════════════════════════════════════════════════
+INSTRUCTIONS DE COMPRÉHENSION CONVERSATIONNELLE
+═══════════════════════════════════════════════════════════════
+
+1. ANALYSE CONVERSATIONNELLE OBLIGATOIRE :
+   - Le message reçu (RECEIVED_MESSAGE) doit être interprété EN PRIORITÉ à la lumière du message précédent (USER_LAST_MESSAGE) si celui-ci est fourni.
+   - Si le message précédent n'est pas fourni, analyser uniquement le message reçu.
+   - Tu dois TOUJOURS distinguer :
+     • Intention initiale (lastUserMessage)
+     • Réaction (receivedMessage)
+   - Adapter l'objectif et le ton en fonction de la dynamique entre les deux messages.
+
+2. IDENTIFICATION DE LA DYNAMIQUE :
+   Tu dois identifier :
+   a) La nature du message précédent (si fourni) :
+      - Question
+      - Proposition
+      - Invitation
+      - Déclaration émotionnelle
+      - Test
+   
+   b) La nature de la réponse reçue :
+      - Acceptation
+      - Refus
+      - Ambiguïté
+      - Désengagement
+      - Intérêt
+   
+   c) La dynamique globale :
+      - Positive
+      - Neutre
+      - En recul
+      - En tension
+
+3. GESTION DU CONTEXTE ADDITIONNEL :
+   - Le champ ADDITIONAL_CONTEXT contient des informations relationnelles ou explicatives.
+   - Il ne doit PAS être reformulé dans la réponse.
+   - Il ne doit PAS être mentionné explicitement.
+   - Il sert uniquement à ajuster la stratégie et le ton.
+   - Si le contexte contient une explication factuelle (ex : "Novelas TV est une chaîne de séries romantiques"), tu ne dois PAS :
+     • répéter la définition
+     • expliquer la chaîne
+     • transformer l'information en contenu pédagogique
+   - Cette information sert uniquement à ajuster la réponse émotionnelle ou stratégique.
+
+4. RÈGLE CRITIQUE :
+   - Tu ne dois JAMAIS supposer que le message reçu est indépendant du message envoyé si celui-ci est fourni.
+   - Tu dois TOUJOURS analyser les deux comme une paire logique.
+
+5. GÉNÉRATION DES RÉPONSES :
+   - Générer 3 réponses alignées avec :
+     • Le ton sélectionné
+     • L'objectif sélectionné
+     • La dynamique détectée
+
 FORMAT DE SORTIE OBLIGATOIRE :
 Tu dois retourner EXACTEMENT 3 propositions de messages, séparées par le délimiteur "---".
 Chaque proposition doit être un message prêt à être copié-collé, sans numérotation ni explication.
@@ -91,14 +146,24 @@ Attends, tu me dis ça comme ça et tu t'attends à quoi comme réaction ? 😏`
 /**
  * Construire le message utilisateur
  */
-export function buildUserMessage(inputMessage: string, context?: string): string {
-  let userMsg = `MESSAGE REÇU PAR L'UTILISATEUR :\n"${inputMessage}"`
+export function buildUserMessage(
+  receivedMessage: string,
+  lastUserMessage?: string,
+  additionalContext?: string
+): string {
+  let userMsg = `CONVERSATION CONTEXT:\n\n`
 
-  if (context && context.trim()) {
-    userMsg += `\n\nCONTEXTE ADDITIONNEL :\n${context}`
+  if (lastUserMessage && lastUserMessage.trim()) {
+    userMsg += `[USER_LAST_MESSAGE]\n${lastUserMessage}\n\n`
   }
 
-  userMsg += `\n\nGénère 3 propositions de réponses (séparées par ---) :`
+  userMsg += `[RECEIVED_MESSAGE]\n${receivedMessage}\n\n`
+
+  if (additionalContext && additionalContext.trim()) {
+    userMsg += `[ADDITIONAL_CONTEXT]\n${additionalContext}\n\n`
+  }
+
+  userMsg += `Génère 3 propositions de réponses (séparées par ---) :`
 
   return userMsg
 }

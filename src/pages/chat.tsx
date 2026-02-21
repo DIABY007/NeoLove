@@ -25,14 +25,16 @@ interface UserData {
 export default function ChatPage() {
   const router = useRouter()
   const [user, setUser] = useState<UserData | null>(null)
-  const [inputMessage, setInputMessage] = useState('')
-  const [context, setContext] = useState('')
+  const [receivedMessage, setReceivedMessage] = useState('')
+  const [lastUserMessage, setLastUserMessage] = useState('')
+  const [additionalContext, setAdditionalContext] = useState('')
   const [selectedTone, setSelectedTone] = useState<ToneId>('taquin')
   const [selectedObjective, setSelectedObjective] = useState<ObjectiveId>('créer_complicité')
   const [outputs, setOutputs] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
+  const [showLastMessage, setShowLastMessage] = useState(false)
   const [showContext, setShowContext] = useState(false)
   const [sessionId] = useState(() => `session_${Date.now()}`)
 
@@ -57,7 +59,7 @@ export default function ChatPage() {
   // Générer les réponses
   const handleGenerate = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!inputMessage.trim()) return
+    if (!receivedMessage.trim()) return
 
     setError('')
     setLoading(true)
@@ -68,9 +70,10 @@ export default function ChatPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          input_message: inputMessage,
+          receivedMessage: receivedMessage,
+          lastUserMessage: lastUserMessage.trim() || undefined,
+          additionalContext: additionalContext.trim() || undefined,
           tone: selectedTone,
-          context: context || undefined,
           objective: selectedObjective,
         }),
       })
@@ -164,27 +167,83 @@ export default function ChatPage() {
 
         {/* Zone de saisie */}
         <form onSubmit={handleGenerate} className="flex-1 px-4 py-6 space-y-5">
+          {/* Message précédent (optionnel) */}
+          {showLastMessage && (
+            <div>
+              <label className="text-sm font-medium text-dark-300 mb-2 flex items-center gap-2">
+                <svg className="w-4 h-4 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Ton dernier message (optionnel mais recommandé)
+              </label>
+              <textarea
+                value={lastUserMessage}
+                onChange={e => setLastUserMessage(e.target.value)}
+                placeholder="Collez ici le message que tu as envoyé précédemment..."
+                className="input-field min-h-[80px] resize-none"
+                maxLength={500}
+              />
+              <div className="text-xs text-dark-500 mt-1 text-right">
+                {lastUserMessage.length}/500
+              </div>
+            </div>
+          )}
+
           {/* Message reçu */}
           <div>
             <label className="text-sm font-medium text-dark-300 mb-2 flex items-center gap-2">
               <Mail className="w-4 h-4 text-primary-400" /> Message reçu
             </label>
             <textarea
-              value={inputMessage}
-              onChange={e => setInputMessage(e.target.value)}
+              value={receivedMessage}
+              onChange={e => setReceivedMessage(e.target.value)}
               placeholder="Collez ici le message auquel vous voulez répondre..."
               className="input-field min-h-[100px] resize-none"
               maxLength={500}
               required
             />
             <div className="text-xs text-dark-500 mt-1 text-right">
-              {inputMessage.length}/500
+              {receivedMessage.length}/500
             </div>
           </div>
 
+          {/* Bouton pour afficher/masquer le message précédent */}
+          {!showLastMessage && (
+            <div>
+              <button
+                type="button"
+                onClick={() => setShowLastMessage(true)}
+                className="text-sm text-primary-400 hover:text-primary-300 transition-colors flex items-center gap-1 underline"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                </svg>
+                Ajouter ton dernier message (recommandé pour une meilleure analyse)
+              </button>
+            </div>
+          )}
+
+          {showLastMessage && (
+            <div>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowLastMessage(false)
+                  setLastUserMessage('')
+                }}
+                className="text-sm text-dark-400 hover:text-dark-300 transition-colors flex items-center gap-1"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                Masquer le message précédent
+              </button>
+            </div>
+          )}
+
           {/* ═══ PANNEAU ASSISTANT ═══ */}
           <AssistantPanel
-            inputMessage={inputMessage}
+            inputMessage={receivedMessage}
             outputs={outputs}
             selectedTone={selectedTone}
             onToneChange={setSelectedTone}
@@ -193,7 +252,7 @@ export default function ChatPage() {
             userId={user.id}
           />
 
-          {/* Contexte (optionnel) */}
+          {/* Contexte additionnel (optionnel) */}
           <div>
             <button
               type="button"
@@ -203,12 +262,12 @@ export default function ChatPage() {
               <svg className={`w-4 h-4 transition-transform ${showContext ? 'rotate-90' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
-              Ajouter du contexte (optionnel)
+              Ajouter du contexte additionnel (optionnel)
             </button>
             {showContext && (
               <textarea
-                value={context}
-                onChange={e => setContext(e.target.value)}
+                value={additionalContext}
+                onChange={e => setAdditionalContext(e.target.value)}
                 placeholder="Ex: On se connaît depuis 2 semaines, elle est un peu distante..."
                 className="input-field mt-2 min-h-[60px] resize-none text-sm"
                 maxLength={300}
@@ -219,7 +278,7 @@ export default function ChatPage() {
           {/* Bouton Générer */}
           <button
             type="submit"
-            disabled={loading || !inputMessage.trim()}
+            disabled={loading || !receivedMessage.trim()}
             className="btn-primary w-full py-4 text-base"
           >
             {loading ? (

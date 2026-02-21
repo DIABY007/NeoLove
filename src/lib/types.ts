@@ -6,6 +6,7 @@ export interface User {
   phone_number: string
   role: 'user' | 'admin'
   created_at: string
+  active_session_id?: string | null
 }
 
 export interface Session {
@@ -49,9 +50,11 @@ export interface VerifyOtpRequest {
 }
 
 export interface GenerateRequest {
-  input_message: string
+  receivedMessage: string
+  lastUserMessage?: string
+  additionalContext?: string
   tone: string
-  context?: string
+  objective?: string
 }
 
 export interface GenerateResponse {
